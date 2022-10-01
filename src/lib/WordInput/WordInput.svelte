@@ -12,7 +12,6 @@
     { letter: "", type: LetterType.Missing, index: 4 },
   ];
   let _letterInput: LetterState[];
-  $: console.log({letterInput, _letterInput})
   $: {
     if (!_letterInput) {
       _letterInput = letterInput;
