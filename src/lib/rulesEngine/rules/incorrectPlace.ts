@@ -4,8 +4,6 @@ export function incorrectPlace(
   char: string,
   position: number
 ): { valid: boolean; rule?: Rule } {
-  console.log("Wrong place", { char, position });
-
   if (char.length !== 1 || position < 0 || position > 4) {
     return {
       valid: false,

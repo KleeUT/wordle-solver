@@ -12,6 +12,7 @@
     { letter: "", type: LetterType.Missing, index: 4 },
   ];
   let _letterInput: LetterState[];
+  $: console.log({letterInput, _letterInput})
   $: {
     if (!_letterInput) {
       _letterInput = letterInput;
@@ -28,7 +29,6 @@
       { word: "", rest: "" }
     );
     const word = input.word + input.rest;
-    console.log({ word });
     _letterInput[0].letter = word?.[0] || "";
     _letterInput[1].letter = word?.[1] || "";
     _letterInput[2].letter = word?.[2] || "";

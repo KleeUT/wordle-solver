@@ -77,7 +77,6 @@ describe("letter to rule", () => {
         [{ index: 0, letter: "a", type: LetterType.CorrectPlace }],
         [{ index: 0, letter: "d", type: LetterType.CorrectPlace }],
       ]);
-      console.log(JSON.stringify(result));
       expect(result).to.toEqual({
         rules: [],
         mismatches: [
