@@ -1,9 +1,5 @@
-import {
-  charAtMustBe,
-  mustNotContain,
-  incorrectPlace,
-  type Rule,
-} from "./rulesEngine";
+import type { Rule } from "./rulesEngine";
+import type { RuleCreationResult } from "./rulesEngine/rules/Rule";
 import { LetterType, type LetterState } from "./WordInput";
 
 interface LetterCoordinate {
@@ -24,7 +20,16 @@ interface AggregatedRules {
   mismatches: RuleMismatch[];
 }
 
-export function letterInputToRules(words: LetterState[][]): AggregatedRules {
+export interface RuleCreators {
+  mustNotContain: (char: string) => RuleCreationResult;
+  charAtMustBe: (char: string, position: number) => RuleCreationResult;
+  incorrectPlace: (char: string, position: number) => RuleCreationResult;
+}
+
+export function letterInputToRules(
+  words: LetterState[][],
+  rules: RuleCreators
+): AggregatedRules {
   const letterMap = words.reduce((letterMap, word, index) => {
     word.forEach((letter) => {
       if (!letterMap.has(letter.letter)) {
@@ -45,7 +50,7 @@ export function letterInputToRules(words: LetterState[][]): AggregatedRules {
   };
 
   letterMap.forEach((occurrences, letter) => {
-    const characterRules = characterToRules(letter, occurrences, words);
+    const characterRules = characterToRules(letter, occurrences, words, rules);
     result.rules = [...result.rules, ...characterRules.rules];
     result.mismatches = [...result.mismatches, ...characterRules.mismatches];
   });
@@ -56,7 +61,8 @@ export function letterInputToRules(words: LetterState[][]): AggregatedRules {
 function characterToRules(
   char: string,
   occurrences: Occurrence[],
-  words: LetterState[][]
+  words: LetterState[][],
+  { mustNotContain, charAtMustBe, incorrectPlace }: RuleCreators
 ): AggregatedRules {
   const mismatches: RuleMismatch[] = [];
   const rules: Rule[] = [];

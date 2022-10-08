@@ -1,6 +1,6 @@
-import type { Rule } from "./Rule";
+import type { RuleCreationResult } from "./Rule";
 
-export function mustNotContain(char: string): { valid: boolean; rule?: Rule } {
+export function mustNotContain(char: string): RuleCreationResult {
   if (char.length !== 1) {
     return {
       valid: false,
