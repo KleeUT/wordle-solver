@@ -86,11 +86,10 @@
   }
   #container {
     width: 20rem;
-    /* height: 40rem; */
+    max-height: 100vh;
     padding-top: 3rem;
     padding-bottom: 3rem;
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
     border-radius: 1rem;
