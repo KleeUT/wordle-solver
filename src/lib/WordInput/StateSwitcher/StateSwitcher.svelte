@@ -28,24 +28,23 @@
     margin: 0;
     border: 0;
     cursor: pointer;
-    border: 2px solid #aaa;
-    border-top: 0;
-    /* border-right: 2px solid #aaa;
-    border-left: 2px solid #aaa;
-    border-bottom: 2px solid #aaa; */
+    border: 0;
     text-align: center;
     cursor: pointer;
   }
   .green {
     background-color: green;
     color: white;
+    border-bottom: 2px solid #333;
   }
   .gold {
     background-color: gold;
     color: black;
+    border-bottom: 2px solid green;
   }
   .gray {
     background-color: #333;
     color: white;
+    border-bottom: 2px solid gold;
   }
 </style>
