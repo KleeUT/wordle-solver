@@ -30,10 +30,9 @@
     font-size: 3rem;
     text-align: center;
     padding: 0;
-    border-right: 0;
-    border-left: 2px solid #aaa;
-    border-top: 2px solid #aaa;
-    border-bottom: 2px solid #aaa;
+    border: 0;
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
     color: whitesmoke;
   }
   input.missing {

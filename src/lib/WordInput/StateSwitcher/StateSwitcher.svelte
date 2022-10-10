@@ -1,44 +1,51 @@
 <script lang="ts">
   import { LetterType } from "./LetterType";
   export let letterType: LetterType = LetterType.Missing;
+  $: nextType = (letterType + 1) % 3;
   function updateType() {
-    letterType = (letterType + 1) % 3;
+    letterType = nextType;
   }
+  function typeToColor(t: LetterType): string {
+    switch (t) {
+      case LetterType.Missing:
+        return "gray";
+      case LetterType.CorrectPlace:
+        return "green";
+      case LetterType.WrongPlace:
+        return "gold";
+    }
+  }
+  $: color = typeToColor(nextType);
 </script>
 
-<button on:click={updateType}>
-  <div class="color green" />
-  <div class="color gold" />
-  <div class="color gray" />
-</button>
+<button on:click={updateType} class={color}>^</button>
 
 <style>
   button {
     width: 3rem;
     height: 1rem;
-    display: inline-flex;
     padding: 0;
     margin: 0;
     border: 0;
-    justify-content: stretch;
-    align-items: stretch;
     cursor: pointer;
-    border-right: 2px solid #aaa;
-    border-top: 2px solid #aaa;
-    border-bottom: 2px solid #aaa;
+    border: 2px solid #aaa;
+    border-top: 0;
+    /* border-right: 2px solid #aaa;
+    border-left: 2px solid #aaa;
+    border-bottom: 2px solid #aaa; */
+    text-align: center;
+    cursor: pointer;
   }
-  div.color {
-    width: 100%;
-    flex-grow: 1;
-    display: inline-block;
-  }
-  div.green {
+  .green {
     background-color: green;
+    color: white;
   }
-  div.gold {
+  .gold {
     background-color: gold;
+    color: black;
   }
-  div.gray {
+  .gray {
     background-color: #333;
+    color: white;
   }
 </style>

@@ -63,8 +63,7 @@
     <WordList words={remainingWords} />
     {#if errors.length !== 0}
       <p>Input error</p>
-    {/if}
-    {#if suggestions.length > 0}
+    {:else if suggestions.length > 0}
       <div>
         <h2>Next Guess</h2>
         <Word word={suggestions[0]} color="green" />
@@ -86,11 +85,10 @@
   }
   #container {
     width: 20rem;
-    /* height: 40rem; */
+    max-height: 100vh;
     padding-top: 3rem;
     padding-bottom: 3rem;
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
     border-radius: 1rem;
