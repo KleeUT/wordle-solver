@@ -16,7 +16,6 @@
     if (!_letterInput) {
       _letterInput = letterInput;
     }
-    // this could be better but whatever
     const input = _letterInput.reduce(
       (word, letter) => {
         word.word += letter.letter[0] || "";
@@ -78,6 +77,6 @@
   div.letters {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 0.25rem;
+    column-gap: 0.25rem;
   }
 </style>
