@@ -39,13 +39,13 @@
   let rules: Rule[] = [];
   let errors: RuleMismatch[] = [];
   $: {
-    const a = letterInputToRules(words, {
+    const mappedRules = letterInputToRules(words, {
       incorrectPlace,
       mustNotContain,
       charAtMustBe,
     });
-    rules = a.rules;
-    errors = a.mismatches;
+    rules = mappedRules.rules;
+    errors = mappedRules.mismatches;
     if (errors.length === 0) {
       remainingWords = reduceWords(allwords, rules);
     }
