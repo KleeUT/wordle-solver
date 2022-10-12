@@ -1,73 +1,27 @@
 <script lang="ts">
-  import allwords from "./words.json";
-  import { LetterType } from "./lib/WordInput/StateSwitcher/LetterType";
-  import { reduceWords } from "./lib/rulesEngine";
+  import allWords from "./words.json";
   import {
-    type Rule,
     incorrectPlace,
     mustNotContain,
     charAtMustBe,
   } from "./lib/rulesEngine";
-  import WordInput from "./lib/WordInput/WordInput.svelte";
-  import { letterInputToRules, type RuleMismatch } from "./lib/letterToRules";
-  import { WordList } from "./lib/WordList";
-  import { suggestWords } from "./lib/suggestionEngine";
-  import Word from "./lib/WordList/Word.svelte";
-  type LetterState = {
-    letter: string;
-    type: LetterType;
-    index: number;
-  };
-
-  const emptyRow = () => [
-    { letter: "", type: LetterType.Missing, index: 0 },
-    { letter: "", type: LetterType.Missing, index: 1 },
-    { letter: "", type: LetterType.Missing, index: 2 },
-    { letter: "", type: LetterType.Missing, index: 3 },
-    { letter: "", type: LetterType.Missing, index: 4 },
-  ];
-  const initialState = () => [
-    emptyRow(),
-    emptyRow(),
-    emptyRow(),
-    emptyRow(),
-    emptyRow(),
-  ];
-
-  let words: LetterState[][] = initialState();
-  let remainingWords: string[] = [];
-  let rules: Rule[] = [];
-  let errors: RuleMismatch[] = [];
-  $: {
-    const mappedRules = letterInputToRules(words, {
-      incorrectPlace,
-      mustNotContain,
-      charAtMustBe,
-    });
-    rules = mappedRules.rules;
-    errors = mappedRules.mismatches;
-    if (errors.length === 0) {
-      remainingWords = reduceWords(allwords, rules);
-    }
+  import HelperView from "./lib/HelperView/HelperView.svelte";
+  import SolutionView from "./lib/SolutionView/SolutionView.svelte";
+  let currentView: "helper" | "solver" = "helper";
+  function toggleView() {
+    currentView = currentView === "helper" ? "solver" : "helper";
   }
-  $: suggestions = suggestWords(remainingWords);
 </script>
 
 <main>
   <div id="container">
-    {#each words as word}
-      <div>
-        <WordInput bind:letterInput={word} />
-      </div>
-    {/each}
-    <WordList words={remainingWords} />
-    {#if errors.length !== 0}
-      <p>Input error</p>
-    {:else if suggestions.length > 0}
-      <div>
-        <h2>Next Guess</h2>
-        <Word word={suggestions[0]} color="green" />
-      </div>
+    <button on:click={toggleView}>Switch View</button>
+    {#if currentView === "helper"}
+      <HelperView
+        {...{ allWords, incorrectPlace, charAtMustBe, mustNotContain }}
+      />
+    {:else}
+      <SolutionView />
     {/if}
   </div>
 </main>

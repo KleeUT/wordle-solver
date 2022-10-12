@@ -1,6 +1,6 @@
 import type { suggestWords } from "src/lib/suggestionEngine";
 import type { reduceWords, Rule } from "src/lib/rulesEngine";
-import { LetterType, type LetterState } from "src/lib/WordInput";
+import { LetterType, type LetterState } from "../WordInput";
 import { checkGuess } from "./checkGuess";
 interface Guess {
   wordsAvailable: number;

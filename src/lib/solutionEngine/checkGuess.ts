@@ -1,4 +1,4 @@
-import { LetterType, type LetterState } from "src/lib/WordInput";
+import { LetterType, type LetterState } from "../WordInput";
 
 function matchType(letter: string, index: number, target: string): LetterType {
   if (!target.includes(letter)) {
