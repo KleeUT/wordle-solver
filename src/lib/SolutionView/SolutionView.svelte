@@ -11,6 +11,7 @@
   } from "../rulesEngine";
   import { LetterType, type LetterState } from "../WordInput";
   import { letterInputToRules } from "../letterToRules";
+  import { Button } from "../Button";
   let target = "";
   $: {
     target = target.toUpperCase();
@@ -36,42 +37,88 @@
       ruleCreator
     );
   }
+  function letterTypeToClass(type: LetterType): string {
+    switch (type) {
+      case LetterType.CorrectPlace:
+        return "correctPlace";
+      case LetterType.WrongPlace:
+        return "wrongPlace";
+      case LetterType.Missing:
+        return "missing";
+    }
+  }
 </script>
 
-<h1>Challenge the wordle solver</h1>
+<h1>How would you solve</h1>
 
 <label for="solution_target"
   >Target:
   <input id="solution_target" type="text" bind:value={target} />
 </label>
-<button on:click={play}>Play</button>
+<Button type="submit" on:click={play}>Play</Button>
 {#if !results}
   <p>No results</p>
 {:else if results.err}
   <p>{results.err.message}</p>
 {:else}
-  <ol>
-    {#each results.guesses as guess}
-      <li>
-        {guess.word
-          .map((l) =>
-            l.type === LetterType.CorrectPlace
-              ? l.letter.toUpperCase()
-              : l.letter
-          )
-          .join("")} : {guess.wordsAvailable}
-      </li>
-    {/each}
-  </ol>
+  <table>
+    <thead>
+      <tr>
+        <th> Words</th>
+        <th> Guess </th>
+      </tr>
+    </thead>
+    <tbody>
+      {#each results.guesses as guess}
+        <tr>
+          <td> {guess.wordsAvailable}</td>
+          <td>
+            {#each guess.word as l}
+              <span class={`letter ${letterTypeToClass(l.type)}`}
+                >{l.letter}</span
+              >
+            {/each}
+          </td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
 {/if}
 
 <style>
-  ol {
-    list-style-type: none;
+  table {
+    font-size: 2rem;
+    max-width: 100%;
+    border-collapse: separate;
+  }
+  td {
+    border-bottom: 1px solid darkgreen;
+    padding: 0.5rem;
+  }
+  label {
+    max-width: 100%;
   }
   input {
-    font-family: monospace;
     letter-spacing: 0.5rem;
-    font-size: 1rem;
+    font-size: 2rem;
+    width: 10rem;
+    padding: 0.5rem;
+    max-width: 100%;
+  }
+  span.letter {
+    color: white;
+    padding: 0.1rem;
+    border-radius: 0.2rem;
+    margin: 1px;
+  }
+  span.missing {
+    background-color: #333;
+  }
+  span.wrongPlace {
+    background-color: gold;
+    color: black;
+  }
+  span.correctPlace {
+    background-color: darkgreen;
   }
 </style>

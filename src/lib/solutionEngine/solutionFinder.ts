@@ -32,12 +32,13 @@ export function findSolution(
   reducer: typeof reduceWords,
   ruleCreator: (words: LetterState[][]) => Rule[]
 ): Solution {
+  const lowerCaseTarget = target.toLowerCase();
   function playTurn(guesses: Guess[]): Guess {
     const rules = ruleCreator(guesses.map((x) => x.word));
     const filteredWords = reducer(words, rules);
     const nextGuess = suggester(filteredWords);
     const result = checkGuess({
-      target,
+      target: lowerCaseTarget,
       guess: nextGuess[0],
     });
 
@@ -49,9 +50,9 @@ export function findSolution(
       word: result.matches,
     };
   }
-  if (!words.includes(target)) {
+  if (!words.includes(lowerCaseTarget)) {
     return {
-      err: new Error(`${target} is not in word list`),
+      err: new Error(`${lowerCaseTarget} is not in word list`),
       guesses: [],
       target,
     };

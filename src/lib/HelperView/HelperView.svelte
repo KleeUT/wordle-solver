@@ -57,6 +57,8 @@
   $: suggestions = suggestWords(remainingWords);
 </script>
 
+<h1>Help me solve</h1>
+<h2>Here's what I know:</h2>
 {#each words as word}
   <div>
     <WordInput bind:letterInput={word} />

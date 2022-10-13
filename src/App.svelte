@@ -7,6 +7,7 @@
   } from "./lib/rulesEngine";
   import HelperView from "./lib/HelperView/HelperView.svelte";
   import SolutionView from "./lib/SolutionView/SolutionView.svelte";
+  import { Button } from "./lib/Button";
   let currentView: "helper" | "solver" = "helper";
   function toggleView() {
     currentView = currentView === "helper" ? "solver" : "helper";
@@ -15,7 +16,8 @@
 
 <main>
   <div id="container">
-    <button on:click={toggleView}>Switch View</button>
+    <Button classification="secondary" on:click={toggleView}>Switch View</Button
+    >
     {#if currentView === "helper"}
       <HelperView
         {...{ allWords, incorrectPlace, charAtMustBe, mustNotContain }}
