@@ -1,72 +1,82 @@
 <script lang="ts">
-  import LetterInput from "./LetterInput/LetterInput.svelte";
   import { LetterType } from "./LetterInput";
   import type { LetterState } from "./LetterState";
   import StateSwitcher from "./StateSwitcher/StateSwitcher.svelte";
+  import { createEventDispatcher } from "svelte";
 
-  export let letterInput: LetterState[] = [
-    { letter: "", type: LetterType.Missing, index: 0 },
+  function typeToColor(t: LetterType): string {
+    switch (t) {
+      case LetterType.Missing:
+        return "gray";
+      case LetterType.CorrectPlace:
+        return "green";
+      case LetterType.WrongPlace:
+        return "gold";
+    }
+  }
+
+  let letterInput: LetterState[] = [
+    { letter: "", type: LetterType.Missing, index: 1 },
     { letter: "", type: LetterType.Missing, index: 1 },
     { letter: "", type: LetterType.Missing, index: 2 },
     { letter: "", type: LetterType.Missing, index: 3 },
     { letter: "", type: LetterType.Missing, index: 4 },
   ];
-  let _letterInput: LetterState[];
+  let wordInput = "";
+  const dispatcher = createEventDispatcher();
+
   $: {
-    if (!_letterInput) {
-      _letterInput = letterInput;
-    }
-    const input = _letterInput.reduce(
-      (word, letter) => {
-        word.word += letter.letter[0] || "";
-        if (letter.letter.length > 1) {
-          word.rest += letter.letter.substring(1);
-        }
-        return word;
-      },
-      { word: "", rest: "" }
-    );
-    const word = input.word + input.rest;
-    _letterInput[0].letter = word?.[0] || "";
-    _letterInput[1].letter = word?.[1] || "";
-    _letterInput[2].letter = word?.[2] || "";
-    _letterInput[3].letter = word?.[3] || "";
-    _letterInput[4].letter = word?.[4] || "";
-    letterInput = _letterInput;
+    console.log({ wordInput, letterInput });
+    dispatcher("change", letterInput);
+    letterInput[0].letter = wordInput?.[0] || "";
+    letterInput[1].letter = wordInput?.[1] || "";
+    letterInput[2].letter = wordInput?.[2] || "";
+    letterInput[3].letter = wordInput?.[3] || "";
+    letterInput[4].letter = wordInput?.[4] || "";
+    letterInput = letterInput;
   }
 </script>
 
 <div class="main">
-  <div class="letters">
-    <LetterInput
-      bind:letter={_letterInput[0].letter}
-      bind:letterType={_letterInput[0].type}
-    />
-    <LetterInput
-      bind:letter={_letterInput[1].letter}
-      bind:letterType={_letterInput[1].type}
-    />
-    <LetterInput
-      bind:letter={_letterInput[2].letter}
-      bind:letterType={_letterInput[2].type}
-    />
-    <LetterInput
-      bind:letter={_letterInput[3].letter}
-      bind:letterType={_letterInput[3].type}
-    />
-    <LetterInput
-      bind:letter={_letterInput[4].letter}
-      bind:letterType={_letterInput[4].type}
-    />
-    <StateSwitcher bind:letterType={_letterInput[0].type} />
-    <StateSwitcher bind:letterType={_letterInput[1].type} />
-    <StateSwitcher bind:letterType={_letterInput[2].type} />
-    <StateSwitcher bind:letterType={_letterInput[3].type} />
-    <StateSwitcher bind:letterType={_letterInput[4].type} />
+  <div class="word">
+    <div class="letters">
+      {#each letterInput as input}
+        <div class={typeToColor(input.type)}>{input.letter}</div>
+      {/each}
+    </div>
+    <div class="wordInput">
+      <input bind:value={wordInput} />
+    </div>
+    {#each letterInput as input}
+      <StateSwitcher bind:letterType={input.type} />
+    {/each}
   </div>
 </div>
 
 <style>
+  div.wordInput {
+    width: 100%;
+    overflow: hidden;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    grid-column-start: 1;
+    grid-column-end: 6;
+  }
+
+  input {
+    width: 100%;
+    padding-left: 2rem;
+    display: block;
+    font-size: 3rem;
+    letter-spacing: 1.8rem;
+    background: transparent;
+    border: 0;
+    color: transparent;
+  }
+  input:focus-within {
+    border: 5px solid rebeccapurple;
+  }
+
   div.main {
     display: flex;
     align-items: center;
@@ -75,8 +85,28 @@
     flex-direction: column;
   }
   div.letters {
+    font-size: 3rem;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    column-gap: 0.25rem;
+    grid-row-start: 1;
+    grid-row-end: 1;
+    grid-column-start: 1;
+    grid-column-end: 6;
+  }
+  div.word {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+  }
+  .green {
+    background-color: green;
+    color: white;
+  }
+  .gold {
+    background-color: gold;
+    color: black;
+  }
+  .gray {
+    background-color: #333;
+    color: white;
   }
 </style>

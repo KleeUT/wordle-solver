@@ -61,7 +61,7 @@
 <h2>Here's what I know:</h2>
 {#each words as word}
   <div>
-    <WordInput bind:letterInput={word} />
+    <WordInput on:change={console.log} />
   </div>
 {/each}
 <WordList words={remainingWords} />
