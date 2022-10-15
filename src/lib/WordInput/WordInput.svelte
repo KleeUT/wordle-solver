@@ -16,7 +16,7 @@
   }
 
   let letterInput: LetterState[] = [
-    { letter: "", type: LetterType.Missing, index: 1 },
+    { letter: "", type: LetterType.Missing, index: 0 },
     { letter: "", type: LetterType.Missing, index: 1 },
     { letter: "", type: LetterType.Missing, index: 2 },
     { letter: "", type: LetterType.Missing, index: 3 },
@@ -26,14 +26,13 @@
   const dispatcher = createEventDispatcher();
 
   $: {
-    console.log({ wordInput, letterInput });
-    dispatcher("change", letterInput);
     letterInput[0].letter = wordInput?.[0] || "";
     letterInput[1].letter = wordInput?.[1] || "";
     letterInput[2].letter = wordInput?.[2] || "";
     letterInput[3].letter = wordInput?.[3] || "";
     letterInput[4].letter = wordInput?.[4] || "";
     letterInput = letterInput;
+    dispatcher("change", letterInput);
   }
 </script>
 
@@ -41,7 +40,9 @@
   <div class="word">
     <div class="letters">
       {#each letterInput as input}
-        <div class={typeToColor(input.type)}>{input.letter}</div>
+        <div class={typeToColor(input.type)}>
+          {input.letter}
+        </div>
       {/each}
     </div>
     <div class="wordInput">
@@ -87,6 +88,7 @@
   div.letters {
     font-size: 3rem;
     display: grid;
+    border-radius: 0.5rem;
     grid-template-columns: repeat(5, 1fr);
     grid-row-start: 1;
     grid-row-end: 1;

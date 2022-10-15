@@ -16,8 +16,6 @@
 
 <main>
   <div id="container">
-    <Button classification="secondary" on:click={toggleView}>Switch View</Button
-    >
     {#if currentView === "helper"}
       <HelperView
         {...{ allWords, incorrectPlace, charAtMustBe, mustNotContain }}
@@ -25,6 +23,8 @@
     {:else}
       <SolutionView />
     {/if}
+    <Button classification="secondary" on:click={toggleView}>Switch View</Button
+    >
   </div>
 </main>
 

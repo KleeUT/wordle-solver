@@ -22,7 +22,20 @@
   export let incorrectPlace: typeof incorrectPlaceType;
   export let mustNotContain: typeof mustNotContainType;
   export let charAtMustBe: typeof charAtMustBeType;
-
+  function allLettersFilled(l?: LetterState[]): boolean {
+    if (!l) {
+      return false;
+    }
+    const out = l.map((x) => x.letter).join("");
+    return out.length === 5;
+  }
+  function allLettersEmpty(l?: LetterState[]): boolean {
+    if (!l) {
+      return false;
+    }
+    const out = l.map((x) => x.letter).join("");
+    return out.length === 0;
+  }
   const emptyRow = () => [
     { letter: "", type: LetterType.Missing, index: 0 },
     { letter: "", type: LetterType.Missing, index: 1 },
@@ -30,15 +43,7 @@
     { letter: "", type: LetterType.Missing, index: 3 },
     { letter: "", type: LetterType.Missing, index: 4 },
   ];
-  const initialState = () => [
-    emptyRow(),
-    emptyRow(),
-    emptyRow(),
-    emptyRow(),
-    emptyRow(),
-  ];
-
-  let words: LetterState[][] = initialState();
+  let words: LetterState[][] = [emptyRow()];
   let remainingWords: string[] = [];
   let rules: Rule[] = [];
   let errors: RuleMismatch[] = [];
@@ -55,13 +60,21 @@
     }
   }
   $: suggestions = suggestWords(remainingWords);
+  function onWordChange(index: number, { detail }: { detail: LetterState[] }) {
+    words[index] = detail;
+    if (allLettersFilled(detail) && words.length - 1 === index) {
+      console.log("Adding");
+      words.push(emptyRow());
+    }
+    words = words;
+  }
 </script>
 
 <h1>Help me solve</h1>
 <h2>Here's what I know:</h2>
-{#each words as word}
+{#each words as _word, i}
   <div>
-    <WordInput on:change={console.log} />
+    <WordInput on:change={(x) => onWordChange(i, x)} />
   </div>
 {/each}
 <WordList words={remainingWords} />
