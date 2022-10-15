@@ -58,15 +58,9 @@ export function findSolution(
     };
   }
   const guesses: Guess[] = [];
-  let exit = 0;
   while (!isSuccessfulGuess(guesses.at(-1))) {
     guesses.push(playTurn(guesses));
-    exit++;
-    if (exit > 10) {
-      throw new Error("Your not good at this");
-    }
     guesses.forEach(console.log);
-    console.log({ exit, s: isSuccessfulGuess(guesses.at(-1)), guesses });
   }
   return {
     guesses,

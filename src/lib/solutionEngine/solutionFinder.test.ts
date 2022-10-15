@@ -76,7 +76,6 @@ describe("Solution Finder", () => {
       vi.fn().mockImplementation(() => [])
     );
     expect(result.err).toBeUndefined();
-    console.log(result.guesses);
     expect(result.guesses).toEqual([
       {
         wordsAvailable: 2,

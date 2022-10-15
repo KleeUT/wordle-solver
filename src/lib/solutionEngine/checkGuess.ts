@@ -17,7 +17,6 @@ export function checkGuess({
   target: string;
   guess: string;
 }): { err?: Error; matches: LetterState[] } {
-  console.log({ target, guess });
   if (target.length !== guess.length) {
     return {
       err: new Error("lengths don't match"),
