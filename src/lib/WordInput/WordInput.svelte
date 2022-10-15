@@ -88,7 +88,6 @@
   div.letters {
     font-size: 3rem;
     display: grid;
-    border-radius: 0.5rem;
     grid-template-columns: repeat(5, 1fr);
     grid-row-start: 1;
     grid-row-end: 1;
@@ -98,6 +97,10 @@
   div.word {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
+  }
+  .letters > div {
+    border-top-left-radius: 0.5rem;
+    border-top-right-radius: 0.5rem;
   }
   .green {
     background-color: green;
