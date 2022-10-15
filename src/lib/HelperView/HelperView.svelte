@@ -63,7 +63,6 @@
   function onWordChange(index: number, { detail }: { detail: LetterState[] }) {
     words[index] = detail;
     if (allLettersFilled(detail) && words.length - 1 === index) {
-      console.log("Adding");
       words.push(emptyRow());
     }
     words = words;
