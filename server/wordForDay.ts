@@ -1,44 +1,48 @@
-import isExists from "date-fns/isExists";
-const nyTimeWordleUrl = (date: { day: string; month: string; year: string }) =>
-  `https://www.nytimes.com/svc/wordle/v2/${date.year}-${date.month.padStart(
-    2,
-    "0"
-  )}-${date.day.padStart(2, "0")}.json`;
+// import isExists from "date-fns/isExists";
+// const nyTimeWordleUrl = (date: { day: string; month: string; year: string }) =>
+//   `https://www.nytimes.com/svc/wordle/v2/${date.year}-${date.month.padStart(
+//     2,
+//     "0"
+//   )}-${date.day.padStart(2, "0")}.json`;
 
-const dateRequiredResponse = new Response("date parameter required", {
-  status: 400,
-});
-const dateIsInvalidResponse = new Response("date parameter is invalid", {
-  status: 400,
-});
+// const dateRequiredResponse = new Response("date parameter required", {
+//   status: 400,
+// });
+// const dateIsInvalidResponse = new Response("date parameter is invalid", {
+//   status: 400,
+// });
 
 export async function proxyAPI({ request }: { request: Request }) {
-  if (!request.url.includes("?")) {
-    return dateRequiredResponse;
-  }
+  // if (!request.url.includes("?")) {
+  //   return dateRequiredResponse;
+  // }
 
-  const queryParams = new URLSearchParams(
-    request.url.substring(request.url.indexOf("?") + 1)
-  );
-  const dateParam = queryParams.get("date");
-  if (!dateParam) {
-    return dateRequiredResponse;
-  }
-  const [year, month, day] = dateParam.split("-");
+  // const queryParams = new URLSearchParams(
+  //   request.url.substring(request.url.indexOf("?") + 1)
+  // );
+  // const dateParam = queryParams.get("date");
+  // if (!dateParam) {
+  //   return dateRequiredResponse;
+  // }
+  // const [year, month, day] = dateParam.split("-");
 
-  if (!isExists(Number(year), Number(month), Number(day))) {
-    return dateIsInvalidResponse;
-  }
-  const res = await fetch(
-    nyTimeWordleUrl({
-      year,
-      month,
-      day,
-    })
-  );
-  if (!res.ok) {
-    return new Response(res.body, { status: res.status });
-  }
-  const data = await res.text();
-  return new Response(data);
+  // if (!isExists(Number(year), Number(month), Number(day))) {
+  //   return dateIsInvalidResponse;
+  // }
+  // const res = await fetch(
+  //   nyTimeWordleUrl({
+  //     year,
+  //     month,
+  //     day,
+  //   })
+  // );
+  // if (!res.ok) {
+  //   return new Response(res.body, { status: res.status });
+  // }
+  // const data = await res.text();
+  // return new Response(data);
+  const res = await fetch(`https://rickandmortyapi.com/api/character/7`);
+  const data = await res.json();
+  const info = JSON.stringify(data, null, 2);
+  return new Response(info);
 }
