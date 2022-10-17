@@ -29,13 +29,6 @@
     const out = l.map((x) => x.letter).join("");
     return out.length === 5;
   }
-  function allLettersEmpty(l?: LetterState[]): boolean {
-    if (!l) {
-      return false;
-    }
-    const out = l.map((x) => x.letter).join("");
-    return out.length === 0;
-  }
   const emptyRow = () => [
     { letter: "", type: LetterType.Missing, index: 0 },
     { letter: "", type: LetterType.Missing, index: 1 },
