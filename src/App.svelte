@@ -23,7 +23,8 @@
     {:else}
       <SolutionView />
     {/if}
-    <Button classification="secondary" on:click={toggleView}>Switch View</Button
+    <Button classification="secondary" on:click={toggleView}
+      >Switch to {currentView === "helper" ? "solver" : "helper"}</Button
     >
   </div>
 </main>

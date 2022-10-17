@@ -60,7 +60,6 @@ export function findSolution(
   const guesses: Guess[] = [];
   while (!isSuccessfulGuess(guesses.at(-1))) {
     guesses.push(playTurn(guesses));
-    guesses.forEach(console.log);
   }
   return {
     guesses,

@@ -12,6 +12,9 @@
   import { LetterType, type LetterState } from "../WordInput";
   import { letterInputToRules } from "../letterToRules";
   import { Button } from "../Button";
+  import DateSelector from "./DateSelector.svelte";
+  import TargetWordInput from "./TargetWordInput.svelte";
+  import Pills from "./Pills.svelte";
   let target = "";
   $: {
     target = target.toUpperCase();
@@ -47,15 +50,19 @@
         return "missing";
     }
   }
+  const word = "word";
+  const date = "date";
+  let options = [word, date];
+  let selected = options[0];
 </script>
 
 <h1>How would you solve</h1>
-
-<label for="solution_target"
-  >Target:
-  <input id="solution_target" type="text" bind:value={target} />
-</label>
-<Button type="submit" on:click={play}>Play</Button>
+<Pills {options} bind:selected />
+{#if selected === word}
+  <TargetWordInput on:selected={play} />
+{:else}
+  <DateSelector on:selected={play} />
+{/if}
 {#if !results}
   <p>No results</p>
 {:else if results.err}
@@ -64,8 +71,8 @@
   <table>
     <thead>
       <tr>
-        <th> Words</th>
-        <th> Guess </th>
+        <th>Words</th>
+        <th>Guess</th>
       </tr>
     </thead>
     <tbody>
@@ -94,16 +101,6 @@
   td {
     border-bottom: 1px solid darkgreen;
     padding: 0.5rem;
-  }
-  label {
-    max-width: 100%;
-  }
-  input {
-    letter-spacing: 0.5rem;
-    font-size: 2rem;
-    width: 10rem;
-    padding: 0.5rem;
-    max-width: 100%;
   }
   span.letter {
     color: white;
