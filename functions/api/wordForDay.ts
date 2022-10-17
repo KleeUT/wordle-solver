@@ -1,4 +1,8 @@
 import { proxyAPI } from "../../server";
-export async function onRequestGet({ request }: { request: Request }) {
+export const onRequestGet: PagesFunction = async ({
+  request,
+}: {
+  request: Request;
+}) => {
   return await proxyAPI({ request });
-}
+};
