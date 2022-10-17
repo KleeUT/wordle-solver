@@ -64,7 +64,4 @@
     max-width: 100%;
     margin-bottom: 1rem;
   }
-  button {
-    width: 100%;
-  }
 </style>
