@@ -29,11 +29,16 @@ export async function proxyAPI({ request }: { request: Request }) {
   if (!isExists(Number(year), Number(month), Number(day))) {
     return dateIsInvalidResponse;
   }
-  return await fetch(
+  const res = await fetch(
     nyTimeWordleUrl({
       year,
       month,
       day,
     })
   );
+  if (!res.ok) {
+    return new Response(res.body, { status: res.status });
+  }
+  const data = await res.text();
+  return new Response(data);
 }

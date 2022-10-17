@@ -37,7 +37,7 @@
   }
 </script>
 
-<form on:submit={fetchWord} action="#">
+<form on:submit={fetchWord} action="">
   <h2>Wordle for date:</h2>
   <label for="yearinput"> Year: </label>
   <input id="yearinput" type="text" bind:value={year} />

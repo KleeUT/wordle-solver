@@ -20,11 +20,11 @@
   }
 </script>
 
-<form>
+<form action="" on:submit={play}>
   <h2>This word:</h2>
   <label for="solution_target">Target: </label>
   <input id="solution_target" type="text" bind:value={target} />
-  <Button type="submit" on:click={play}>Play</Button>
+  <Button type="submit">Play</Button>
   {#if error}
     <p>{error}</p>
   {/if}
