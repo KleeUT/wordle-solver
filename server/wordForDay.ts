@@ -12,7 +12,7 @@ const dateIsInvalidResponse = new Response("date parameter is invalid", {
   status: 400,
 });
 
-export function proxyAPI({ request }: { request: Request }) {
+export async function proxyAPI({ request }: { request: Request }) {
   if (!request.url.includes("?")) {
     return dateRequiredResponse;
   }
@@ -29,7 +29,7 @@ export function proxyAPI({ request }: { request: Request }) {
   if (!isExists(Number(year), Number(month), Number(day))) {
     return dateIsInvalidResponse;
   }
-  return fetch(
+  return await fetch(
     nyTimeWordleUrl({
       year,
       month,
