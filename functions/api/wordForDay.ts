@@ -1,4 +1,4 @@
 import { proxyAPI } from "../../server";
-export function onRequestGet({ request }: { request: Request }) {
-  return proxyAPI({ request });
+export async function onRequestGet({ request }: { request: Request }) {
+  return await proxyAPI({ request });
 }
