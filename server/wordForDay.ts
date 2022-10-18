@@ -13,22 +13,23 @@ const dateIsInvalidResponse = new Response("date parameter is invalid", {
 });
 
 export async function proxyAPI({ request }: { request: Request }) {
-  if (!request.url.includes("?")) {
-    return dateRequiredResponse;
-  }
+  // if (!request.url.includes("?")) {
+  //   return dateRequiredResponse;
+  // }
 
   const queryParams = new URLSearchParams(
     request.url.substring(request.url.indexOf("?") + 1)
   );
   const dateParam = queryParams.get("date");
   if (!dateParam) {
-    return dateRequiredResponse;
+    throw new Error("No parameters");
+    // return dateRequiredResponse;
   }
   const [year, month, day] = dateParam.split("-");
 
-  if (!isExists(Number(year), Number(month), Number(day))) {
-    return dateIsInvalidResponse;
-  }
+  // if (!isExists(Number(year), Number(month), Number(day))) {
+  //   return dateIsInvalidResponse;
+  // }
   // const res = await fetch(
   //   nyTimeWordleUrl({
   //     year,
