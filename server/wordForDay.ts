@@ -17,15 +17,15 @@ export async function proxyAPI({ request }: { request: Request }) {
   //   return dateRequiredResponse;
   // }
 
-  const queryParams = new URLSearchParams(
-    request.url.substring(request.url.indexOf("?") + 1)
-  );
-  const dateParam = queryParams.get("date");
-  if (!dateParam) {
-    throw new Error("No parameters");
-    // return dateRequiredResponse;
-  }
-  const [year, month, day] = dateParam.split("-");
+  // const queryParams = new URLSearchParams(
+  //   request.url.substring(request.url.indexOf("?") + 1)
+  // );
+  // const dateParam = queryParams.get("date");
+  // if (!dateParam) {
+  //   throw new Error("No parameters");
+  //   // return dateRequiredResponse;
+  // }
+  // const [year, month, day] = dateParam.split("-");
 
   // if (!isExists(Number(year), Number(month), Number(day))) {
   //   return dateIsInvalidResponse;
@@ -42,12 +42,13 @@ export async function proxyAPI({ request }: { request: Request }) {
   // }
   // const data = await res.text();
   // return new Response(data);
+  // const url = nyTimeWordleUrl({
+  //   year: "2022",
+  //   month: "10",
+  //   day: "01",
+  // });
   const res = await fetch(
-    nyTimeWordleUrl({
-      year,
-      month,
-      day,
-    })
+    "https://www.nytimes.com/svc/wordle/v2/2022-10-05.json"
   );
   // const res = await fetch(`https://rickandmortyapi.com/api/character/7`);
   const data = await res.json();
