@@ -47,10 +47,10 @@ export async function proxyAPI({ request }: { request: Request }) {
   //   month: "10",
   //   day: "01",
   // });
-  const res = await fetch(
-    "https://www.nytimes.com/svc/wordle/v2/2022-10-05.json"
-  );
-  // const res = await fetch(`https://rickandmortyapi.com/api/character/7`);
+  // const res = await fetch(
+  //   "https://www.nytimes.com/svc/wordle/v2/2022-10-05.json"
+  // );
+  const res = await fetch(`https://rickandmortyapi.com/api/character/7`);
   const data = await res.json();
   const info = JSON.stringify(data);
   return new Response(info);
