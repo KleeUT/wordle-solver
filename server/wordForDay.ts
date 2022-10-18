@@ -1,16 +1,16 @@
-import isExists from "date-fns/isExists";
-const nyTimeWordleUrl = (date: { day: string; month: string; year: string }) =>
-  `https://www.nytimes.com/svc/wordle/v2/${date.year}-${date.month.padStart(
-    2,
-    "0"
-  )}-${date.day.padStart(2, "0")}.json`;
+// import isExists from "date-fns/isExists";
+// const nyTimeWordleUrl = (date: { day: string; month: string; year: string }) =>
+//   `https://www.nytimes.com/svc/wordle/v2/${date.year}-${date.month.padStart(
+//     2,
+//     "0"
+//   )}-${date.day.padStart(2, "0")}.json`;
 
-const dateRequiredResponse = new Response("date parameter required", {
-  status: 400,
-});
-const dateIsInvalidResponse = new Response("date parameter is invalid", {
-  status: 400,
-});
+// const dateRequiredResponse = new Response("date parameter required", {
+//   status: 400,
+// });
+// const dateIsInvalidResponse = new Response("date parameter is invalid", {
+//   status: 400,
+// });
 
 export async function proxyAPI({ request }: { request: Request }) {
   // if (!request.url.includes("?")) {
