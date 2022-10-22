@@ -5,12 +5,12 @@ import isExists from "date-fns/isExists";
 //     "0"
 //   )}-${date.day.padStart(2, "0")}.json`;
 
-// const dateRequiredResponse = new Response("date parameter required", {
-//   status: 400,
-// });
-// const dateIsInvalidResponse = new Response("date parameter is invalid", {
-//   status: 400,
-// });
+const dateRequiredResponse = new Response("date parameter required", {
+  status: 400,
+});
+const dateIsInvalidResponse = new Response("date parameter is invalid", {
+  status: 400,
+});
 
 export async function proxyAPI({ request }: { request: Request }) {
   console.log({ ex: isExists(2022, 10, 11) });
