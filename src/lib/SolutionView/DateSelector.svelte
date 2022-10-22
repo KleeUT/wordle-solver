@@ -17,7 +17,8 @@
   let day = String(new Date().getDay());
   let error: string | undefined;
   const dispatch = createEventDispatcher();
-  async function fetchWord() {
+  async function fetchWord(e: SubmitEvent) {
+    e.preventDefault();
     const res = await fetch(`/api/wordForDay?date=${year}-${month}-${day}`);
     console.log({ status: res.status });
     try {

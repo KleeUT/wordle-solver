@@ -11,7 +11,8 @@
       target = target.substring(0, 5);
     }
   }
-  function play() {
+  function play(e: SubmitEvent) {
+    e.preventDefault();
     if (target.length === 5) {
       dispatch("selected", target);
     } else {
