@@ -1,4 +1,4 @@
-// import isExists from "date-fns/isExists";
+import isExists from "date-fns/isExists";
 // const nyTimeWordleUrl = (date: { day: string; month: string; year: string }) =>
 //   `https://www.nytimes.com/svc/wordle/v2/${date.year}-${date.month.padStart(
 //     2,
@@ -13,6 +13,7 @@
 // });
 
 export async function proxyAPI({ request }: { request: Request }) {
+  console.log({ ex: isExists(2022, 10, 11) });
   // if (!request.url.includes("?")) {
   //   return dateRequiredResponse;
   // }
