@@ -14,7 +14,7 @@
   };
   let year = String(new Date().getFullYear());
   let month = String(new Date().getMonth());
-  let day = String(new Date().getDay());
+  let day = String(new Date().getDate());
   let error: string | undefined;
   const dispatch = createEventDispatcher();
   async function fetchWord(e: SubmitEvent) {
