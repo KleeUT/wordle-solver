@@ -31,9 +31,9 @@
     });
     return mappedRules.rules;
   }
-  function play() {
+  function play(e: CustomEvent<string>) {
     results = findSolution(
-      target,
+      e.detail,
       allWords,
       suggestWords,
       reduceWords,
