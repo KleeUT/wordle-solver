@@ -24,8 +24,8 @@
   ];
   let wordInput = "";
   const dispatcher = createEventDispatcher();
-
   $: {
+    wordInput = wordInput.toUpperCase();
     letterInput[0].letter = wordInput?.[0] || "";
     letterInput[1].letter = wordInput?.[1] || "";
     letterInput[2].letter = wordInput?.[2] || "";

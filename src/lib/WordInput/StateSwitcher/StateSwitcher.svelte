@@ -23,7 +23,7 @@
 <style>
   button {
     width: 100%;
-    height: 1rem;
+    height: 1.5rem;
     padding: 0;
     margin: 0;
     border: 0;
@@ -35,16 +35,16 @@
   .green {
     background-color: green;
     color: white;
-    border-bottom: 2px solid #333;
+    border-bottom: 0.5rem solid #333;
   }
   .gold {
     background-color: gold;
     color: black;
-    border-bottom: 2px solid green;
+    border-bottom: 0.5rem solid green;
   }
   .gray {
     background-color: #333;
     color: white;
-    border-bottom: 2px solid gold;
+    border-bottom: 0.5rem solid gold;
   }
 </style>
