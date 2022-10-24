@@ -13,7 +13,7 @@
     results: never[];
   };
   let year = String(new Date().getFullYear());
-  let month = String(new Date().getMonth());
+  let month = String(new Date().getMonth() + 1);
   let day = String(new Date().getDate());
   let error: string | undefined;
   const dispatch = createEventDispatcher();
