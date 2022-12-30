@@ -6,11 +6,11 @@ const nyTimeWordleUrl = (date: { day: string; month: string; year: string }) =>
   )}-${date.day.padStart(2, "0")}.json`;
 
 const dateRequiredResponse = () =>
-  new Response("date parameter required", {
+  new Response(JSON.stringify({ err: { msg: "date parameter required" } }), {
     status: 400,
   });
 const dateIsInvalidResponse = () =>
-  new Response("date parameter is invalid", {
+  new Response(JSON.stringify({ err: { msg: "date parameter is invalid" } }), {
     status: 400,
   });
 
@@ -32,7 +32,7 @@ export async function proxyAPI({
   }
   const [year, month, day] = dateParam.split("-");
 
-  if (!isExists(Number(year), Number(month), Number(day))) {
+  if (!isExists(Number(year), Number(month) - 1, Number(day))) {
     return dateIsInvalidResponse();
   }
   const res = await fetch(
