@@ -20,7 +20,6 @@
   async function fetchWord(e: SubmitEvent) {
     e.preventDefault();
     const res = await fetch(`/api/wordForDay?date=${year}-${month}-${day}`);
-    console.log({ status: res.status });
     try {
       if (!res.ok) {
         const body: ErrorResponse = await res.json();
