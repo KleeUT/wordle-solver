@@ -23,7 +23,7 @@ export function pickPuzzle(allPuzzles: Array<PuzzleData>) {
   }
 
   let dayDifference = getDayDifference();
+  let wordsForTheDay = allPuzzles[dayDifference % allPuzzles.length];
 
-  let puzzleForTheDay = allPuzzles[(dayDifference % allPuzzles.length) + 1];
-  return puzzleForTheDay;
+  return wordsForTheDay;
 }
